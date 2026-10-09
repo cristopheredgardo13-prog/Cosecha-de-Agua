@@ -83,3 +83,24 @@ escribir código, paró como manda P1 para preguntar tres ambigüedades de la fi
 tres respuestas (0 de 10 · reloj en main.ts · regar evita la pérdida del día)
 creó `src/logica.ts` con CONFIG, tipos, azar con semilla y las funciones de los
 tres verbos; `npx tsc --noEmit` quedó en silencio. No tocó pantalla ni creó más archivos.
+
+---
+
+## Prompt P2 — PRUEBAS · que la máquina revise (Bloque 2)
+
+Mínimo cinco pruebas. La número 5 es la que encuentra los errores de diseño.
+Escribí pruebas con Vitest para src/logica.ts, en test/logica.test.ts.
+Como mínimo cinco, y tienen que cubrir:
+1. Que el estado inicial se arme bien.
+2. Cada acción del usuario: qué hace cuando es válida y qué devuelve cuando no.
+3. Que no se pueda hacer una acción prohibida por las reglas.
+4. La condición de «termina bien» y la de «termina mal» de mi ficha.
+5. UNA PRUEBA QUE RECORRA UN USO COMPLETO de principio a fin y compruebe que
+SE PUEDE LLEGAR AL FINAL BUENO.
+Los nombres de las pruebas en español y en forma de frase.
+No modifiques src/logica.ts. Al terminar corré npm test y pegame el resultado.
+
+**Qué hizo el agente:** creó `test/logica.test.ts` con pruebas en español que
+cubren las cinco áreas (estado inicial, las tres acciones válidas e inválidas,
+acción prohibida, termina bien / termina mal y un recorrido completo de 7 días
+que llega al final bueno), sin tocar `src/logica.ts`, y corrió `npm test`.
