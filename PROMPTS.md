@@ -131,3 +131,81 @@ propias; agregó a `CONFIG` los números que la pantalla necesita (velocidad y
 intervalo de gotas, semilla) para no dejar números sueltos, corrió `npm test`
 (16 en verde) y `npx tsc --noEmit` (silencio). `index.html` ya tenía
 `<div id="app">` y el módulo, no hizo falta tocarlo.
+
+---
+
+## Prompt P4 — MÓVIL · que funcione con el dedo (Bloque 3)
+
+Hacé que esto funcione bien en un celular:
+1. Todo lo que se toca tiene que medir al menos 44 píxeles de alto y de ancho.
+2. Nada se sale de la pantalla a lo ancho: cero desplazamiento horizontal.
+3. El texto nunca baja de 16 píxeles.
+4. Funciona con el dedo (toque) y también con teclado, las dos cosas.
+5. Agregá la etiqueta viewport en index.html si falta.
+No cambies las reglas ni la dificultad. Decime qué ajustaste.
+
+**Qué hizo el agente:** el viewport ya estaba configurado y los botones existentes
+aceptaban toque. Agregó arrastre táctil en la zona del juego usando `moverPila`,
+conservó el teclado y los botones, y reforzó el ajuste móvil para evitar
+desplazamiento horizontal. Los botones tienen un tamaño mínimo de 48 × 48 px.
+La herramienta informó que `npm test` y `npm run build` pasaron; al verificar
+la copia del ZIP en otro entorno, esas órdenes dieron `EPERM` al resolver rutas,
+por lo que esa comprobación no se pudo repetir aquí. Falta probarlo en un teléfono real.
+
+---
+
+## Prompt P5 — REVISIÓN · los seis problemas típicos (Bloque 4)
+
+Revisá todo el proyecto buscando estos seis problemas, y decime cuáles tiene
+y en qué línea está cada uno:
+1. Lógica metida dentro de main.ts.
+2. Números sueltos fuera del objeto CONFIG.
+3. Un final bueno al que no se pueda llegar: hacé el cálculo con los números reales.
+4. Estado que no se reinicia bien al empezar de nuevo.
+5. Variables o funciones que quedaron sin uso.
+6. Alguna regla de mi ficha que las pruebas no cubran.
+Solo el informe, numerado. TODAVÍA NO ARREGLES NADA.
+
+**Informe de revisión:**
+1. Hay simulación de gotas y reloj en `src/main.ts`, líneas 267–289. Las
+   reglas principales se delegan en `logica.ts`, pero el avance físico y el
+   momento de colisión se coordinan desde la pantalla.
+2. Quedan valores numéricos de límites, posiciones y tiempo en `src/main.ts`,
+   por ejemplo en las líneas 40, 96, 180–186 y 280–286. Requieren revisar si
+   pertenecen a configuración de juego o a presentación.
+3. La lógica de las pruebas permite ganar. En tiempo real hay 20 segundos por
+   día y se generan gotas cada 900 ms; hacen falta 3 unidades para regar. La
+   cantidad disponible parece suficiente, pero no hay una prueba de partida
+   completa que ejecute la caída y captura de gotas.
+4. El estado y los temporizadores visuales se reinician en `empezar()`
+   (líneas 250–256). El generador aleatorio se conserva entre partidas, por lo
+   que volver a empezar no repite exactamente la misma secuencia de gotas.
+5. `Gota.id` se asigna en la línea 280, pero no se consulta al dibujar ni al
+   actualizar las gotas (`src/main.ts`, líneas 33–36 y 100–107).
+6. Las pruebas cubren las reglas de `logica.ts`, pero no la integración de
+   caída/atrapada de gotas ni el arrastre táctil. La prueba real en teléfono
+   sigue pendiente.
+
+**Qué hizo el agente:** entregó el informe numerado sin modificar código durante
+la revisión. Quedó pendiente probar el juego en un teléfono real.
+
+---
+
+## Prompt P6 — README · la documentación (Bloque 4)
+
+Escribí el archivo README.md en español con estas seis partes:
+1. Nombre y la frase de mi ficha.
+2. Qué hace y cómo se usa, en tres líneas.
+3. El enlace para abrirlo.
+4. Cómo correrlo en otra máquina: los comandos exactos.
+5. Dejá este espacio en blanco con un comentario para que lo llene yo:
+   «Qué dirigí yo y qué error encontré probando».
+6. Declaración de autoría: qué herramienta usé, que el código lo generó un
+   agente de IA bajo mi dirección, y qué partes puedo explicar.
+No inventes nada en las partes 5 y 6: dejalas para que las complete yo.
+
+**Qué hizo el agente:** creó este README en español con la descripción de la
+ficha, controles, comandos y el enlace al repositorio. Dejó pendiente la URL
+del juego publicado y espacios para las capturas reales. Las respuestas
+personales de las partes 5 y 6 quedaron marcadas para que el estudiante las
+complete con su experiencia y comprensión reales.

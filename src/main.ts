@@ -132,7 +132,8 @@ function dibujar(): void {
           <button id="empezar" class="principal" type="button">Empezar</button>
         </div>
         <p>
-          Teclado: flechas ← → para mover la pila, barra espaciadora para regar.
+          Teclado: flechas ← → para mover la pila y barra espaciadora para regar.
+          En celular: arrastrá el dedo por la zona de juego para moverla y tocá REGAR.
         </p>
       </section>`;
     document.querySelector<HTMLButtonElement>('#empezar')?.addEventListener('click', empezar);
@@ -168,6 +169,47 @@ function dibujar(): void {
       regar(estado);
       dibujarZona();
     });
+
+    const zona = document.querySelector<HTMLDivElement>('#zona');
+    if (zona) {
+      let punteroActivo: number | null = null;
+
+      const moverPilaConToque = (clientX: number): void => {
+        const limites = zona.getBoundingClientRect();
+        if (limites.width === 0) return;
+        const xObjetivo = Math.max(
+          0,
+          Math.min(100, ((clientX - limites.left) / limites.width) * 100),
+        );
+        const pasos = Math.round((xObjetivo - estado.pilaX) / CONFIG.PASO_PILA);
+        const direccion = pasos < 0 ? -1 : 1;
+        for (let paso = 0; paso < Math.abs(pasos); paso += 1) {
+          moverPila(estado, direccion);
+        }
+        dibujarZona();
+      };
+
+      zona.addEventListener('pointerdown', (evento: PointerEvent) => {
+        if (evento.pointerType !== 'touch') return;
+        evento.preventDefault();
+        punteroActivo = evento.pointerId;
+        zona.setPointerCapture(evento.pointerId);
+        moverPilaConToque(evento.clientX);
+      });
+      zona.addEventListener('pointermove', (evento: PointerEvent) => {
+        if (evento.pointerId === punteroActivo) {
+          moverPilaConToque(evento.clientX);
+        }
+      });
+      const finalizarToque = (evento: PointerEvent): void => {
+        if (evento.pointerId === punteroActivo) {
+          punteroActivo = null;
+        }
+      };
+      zona.addEventListener('pointerup', finalizarToque);
+      zona.addEventListener('pointercancel', finalizarToque);
+    }
+
     dibujarZona();
     return;
   }
@@ -262,7 +304,7 @@ function reloj(ahoraMs: number): void {
 }
 
 // ---------------------------------------------------------------------------
-// Teclado (el dedo se agrega en el prompt P4)
+// Teclado y arrastre táctil para mover la pila.
 // ---------------------------------------------------------------------------
 window.addEventListener('keydown', (evento: KeyboardEvent) => {
   if (vista !== 'jugando') return;
