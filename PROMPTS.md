@@ -103,4 +103,31 @@ No modifiques src/logica.ts. Al terminar corré npm test y pegame el resultado.
 **Qué hizo el agente:** creó `test/logica.test.ts` con pruebas en español que
 cubren las cinco áreas (estado inicial, las tres acciones válidas e inválidas,
 acción prohibida, termina bien / termina mal y un recorrido completo de 7 días
-que llega al final bueno), sin tocar `src/logica.ts`, y corrió `npm test`.
+que llega al final bueno), sin tocar `src/logica.ts`, y corrió `npm test`
+(16 pruebas en verde, exit 0).
+
+---
+
+## Prompt P3 — PANTALLA · que se vea (Bloque 3)
+
+La pantalla no decide nada: solo muestra lo que dice la lógica.
+Creá src/main.ts y src/estilo.css para mostrar COSECHA DE AGUA
+en pantalla.
+REGLAS
+- main.ts NO decide nada: llama a las funciones de logica.ts y dibuja el
+  resultado. Si tenés que escribir una regla acá, está en el lugar equivocado:
+  decímelo en lugar de hacerlo.
+- Tres estados visibles: el inicio, el uso normal y el final.
+- Contraste alto y texto nunca menor a 16 píxeles.
+- Los colores según mi ficha. Sin imágenes ni librerías externas.
+- Importá el CSS desde main.ts con: import './estilo.css'
+Ajustá index.html para que tenga un div con id="app" y cargue src/main.ts
+como módulo. Al terminar confirmame que no hay errores en la consola.
+
+**Qué hizo el agente:** creó `src/estilo.css` y reescribió `src/main.ts` con los
+tres estados visibles (inicio, uso normal, final), llamando siempre a las
+funciones de `logica.ts` (mover/atrapar/regar/pasar día) sin escribir reglas
+propias; agregó a `CONFIG` los números que la pantalla necesita (velocidad y
+intervalo de gotas, semilla) para no dejar números sueltos, corrió `npm test`
+(16 en verde) y `npx tsc --noEmit` (silencio). `index.html` ya tenía
+`<div id="app">` y el módulo, no hizo falta tocarlo.
