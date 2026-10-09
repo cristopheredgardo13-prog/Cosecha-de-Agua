@@ -26,6 +26,12 @@ export const CONFIG = {
   ANCHO_PILA: 14,
   /** Duración de cada día, en milisegundos (la usa el reloj de main.ts). */
   DURACION_DIA_MS: 20000,
+  /** Velocidad de caída de las gotas, en porcentaje del alto de juego por segundo. */
+  VELOCIDAD_CADA: 35,
+  /** Cada cuánto aparece una gota nueva, en milisegundos. */
+  INTERVALO_GOTA: 900,
+  /** Semilla del azar para que las gotas caigan siempre en el mismo orden. */
+  SEMILLA: 28,
 } as const;
 
 // ---------------------------------------------------------------------------

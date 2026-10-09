@@ -1,0 +1,233 @@
+/* src/estilo.css — Estilos de Cosecha de Agua.
+   Colores según la ficha: azul = agua, verde = huerto, rojo = peligro,
+   amarillo = día y botón de regar. Sin imágenes ni librerías externas. */
+
+:root {
+  --azul: #0b5fd0;
+  --azul-oscuro: #063a86;
+  --verde: #12833f;
+  --rojo: #c62828;
+  --amarillo: #f2b705;
+  --fondo: #f4f7fb;
+  --texto: #14202e;
+  --blanco: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+h1 {
+  font-size: 24px;
+  margin: 8px 0;
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 40rem;
+}
+
+/* ---------- Tarjetas de información (día, vida, agua) ---------- */
+.pantalla {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 40rem;
+}
+
+.tablero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.tarjeta {
+  flex: 1 1 8rem;
+  background: var(--blanco);
+  border: 2px solid #d3dbe6;
+  border-radius: 10px;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.tarjeta .etiqueta {
+  display: block;
+  font-size: 16px;
+  color: #45526b;
+}
+
+.tarjeta .valor {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Amarillo = el día */
+.tarjeta.dia {
+  border-color: var(--amarillo);
+}
+
+.tarjeta.dia .valor {
+  color: #8a6a00;
+}
+
+/* Rojo = peligro (poca vida o poca agua) */
+.tarjeta.peligro {
+  border-color: var(--rojo);
+  background: #fdecec;
+}
+
+.tarjeta.peligro .valor {
+  color: var(--rojo);
+}
+
+.tarjeta.ok .valor {
+  color: var(--texto);
+}
+
+/* ---------- Zona de juego ---------- */
+.zona {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background: linear-gradient(#dcecff 0%, #cfe4ff 70%, #b9d3a8 70%, #a8c792 100%);
+  border: 2px solid var(--azul-oscuro);
+  border-radius: 10px;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.gota {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--azul);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+}
+
+.pila {
+  position: absolute;
+  bottom: 0;
+  height: 34px;
+  background: var(--azul-oscuro);
+  border: 3px solid var(--blanco);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+}
+
+.huerto {
+  font-size: 16px;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--verde);
+  color: var(--blanco);
+}
+
+.huerto.poco {
+  background: var(--rojo);
+}
+
+/* ---------- Botones ---------- */
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+button {
+  font-family: inherit;
+  font-size: 18px;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: 2px solid var(--azul-oscuro);
+  background: var(--blanco);
+  color: var(--texto);
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--azul);
+  outline-offset: 2px;
+}
+
+/* Amarillo = botón de regar */
+button.regar {
+  background: var(--amarillo);
+  border-color: #8a6a00;
+  color: #1d1600;
+  font-weight: 700;
+}
+
+button.principal {
+  background: var(--verde);
+  border-color: #0a5c2d;
+  color: var(--blanco);
+  font-weight: 700;
+}
+
+button.peligro {
+  background: var(--rojo);
+  border-color: #7f1d1d;
+  color: var(--blanco);
+}
+
+/* ---------- Finales ---------- */
+.aviso {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--blanco);
+  border: 3px solid var(--verde);
+}
+
+.aviso.mal {
+  border-color: var(--rojo);
+  color: var(--rojo);
+}
+
+.reloj {
+  width: 100%;
+  height: 10px;
+  background: #d3dbe6;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.reloj > span {
+  display: block;
+  height: 100%;
+  background: var(--amarillo);
+}
